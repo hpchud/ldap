@@ -35,6 +35,7 @@ if [[ -f "/var/lib/ldap/DB_CONFIG" ]]; then
     echo "database already configured, wiping it"
     rm -rf /var/lib/ldap/*
     rm -rf $LDAP_DIR
+    rm -rf /root/ldap-config
 fi
 
 echo "database not configured, will populate now"
