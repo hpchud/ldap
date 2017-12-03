@@ -55,6 +55,10 @@ slapadd -n0 -F /etc/openldap/slapd.d -l /etc/openldap/schema/cosine.ldif
 slapadd -n0 -F /etc/openldap/slapd.d -l /etc/openldap/schema/nis.ldif 
 slapadd -n0 -F /etc/openldap/slapd.d -l /etc/openldap/schema/inetorgperson.ldif
 
+# convert any yml files to ldif format
+yml2ldif /root/ldap-config/populate/*.yml > /root/ldap-config/populate/40_converted-from-yml.ldif
+rm -rf /root/ldap-config/populate/*.yml
+
 # use ldifs to populate directory
 echo "populating directory..."
 for file in `ls /root/ldap-config/populate/*.ldif`; do

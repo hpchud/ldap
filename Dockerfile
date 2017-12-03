@@ -1,9 +1,21 @@
 FROM centos:7
 
-#ARG http_proxy=http://wwwproxy.hud.ac.uk:3128
-#ARG https_proxy=http://wwwproxy.hud.ac.uk:3128
+RUN yum -y install *openldap* migrationtools git make
 
-RUN yum -y install *openldap* migrationtools git
+# install n
+WORKDIR /
+RUN git clone https://github.com/tj/n.git \
+    && cd n \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -r n
+
+# use n to install node
+RUN n lts
+
+# use npm to install config-templater
+RUN npm install -g yml2ldif
 
 RUN mv /etc/openldap /etc/openldap.dist
 
